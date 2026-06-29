@@ -1,0 +1,56 @@
+{
+  "dataset_source": "aryan208/financial-transactions-dataset-for-fraud-detection",
+  "sample_size": 100000,
+  "raw_rows": 100000,
+  "clean_rows": 100000,
+  "best_cluster_count": 2,
+  "cluster_metrics": [
+    {
+      "cluster_count": 2,
+      "inertia": 775709.5421174975,
+      "silhouette_score": 0.17443634439125172
+    },
+    {
+      "cluster_count": 3,
+      "inertia": 713740.1350294115,
+      "silhouette_score": 0.11158784215007454
+    },
+    {
+      "cluster_count": 4,
+      "inertia": 677779.8808313729,
+      "silhouette_score": 0.09721082413587048
+    },
+    {
+      "cluster_count": 5,
+      "inertia": 649137.3850057638,
+      "silhouette_score": 0.09570498164699
+    },
+    {
+      "cluster_count": 6,
+      "inertia": 628791.8307929819,
+      "silhouette_score": 0.09034485151289057
+    },
+    {
+      "cluster_count": 7,
+      "inertia": 610751.391718386,
+      "silhouette_score": 0.09063245874670374
+    },
+    {
+      "cluster_count": 8,
+      "inertia": 593446.3332858207,
+      "silhouette_score": 0.09098513592464544
+    }
+  ],
+  "classification_metrics": {
+    "train_rows": 80000,
+    "test_rows": 20000,
+    "accuracy": 0.9996
+  },
+  "artifacts": {
+    "raw_dataset": "D:\\code\\Machine Learning\\data\\raw\\financial_transactions.csv",
+    "preprocessed_dataset": "D:\\code\\Machine Learning\\data\\processed\\transactions_preprocessed.csv",
+    "training_with_target": "D:\\code\\Machine Learning\\data\\processed\\transactions_training_with_target.csv",
+    "clustering_model": "D:\\code\\Machine Learning\\models\\model_clustering.joblib",
+    "decision_tree_model": "D:\\code\\Machine Learning\\models\\decision_tree_model.h5"
+  }
+}
