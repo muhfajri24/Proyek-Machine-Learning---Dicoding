@@ -1,56 +1,57 @@
 {
   "dataset_source": "aryan208/financial-transactions-dataset-for-fraud-detection",
-  "sample_size": 100000,
-  "raw_rows": 100000,
-  "clean_rows": 100000,
+  "sample_size": 30000,
+  "raw_rows": 30000,
+  "clean_rows": 30000,
   "best_cluster_count": 2,
   "cluster_metrics": [
     {
       "cluster_count": 2,
-      "inertia": 775709.5421174975,
-      "silhouette_score": 0.17443634439125172
+      "inertia": 232815.47022775892,
+      "silhouette_score": 0.17334056206498274
     },
     {
       "cluster_count": 3,
-      "inertia": 713740.1350294115,
-      "silhouette_score": 0.11158784215007454
+      "inertia": 214135.43586170586,
+      "silhouette_score": 0.11222098948597703
     },
     {
       "cluster_count": 4,
-      "inertia": 677779.8808313729,
-      "silhouette_score": 0.09721082413587048
+      "inertia": 203251.04106638822,
+      "silhouette_score": 0.0979601752594917
     },
     {
       "cluster_count": 5,
-      "inertia": 649137.3850057638,
-      "silhouette_score": 0.09570498164699
+      "inertia": 194871.87584238098,
+      "silhouette_score": 0.09606218683732598
     },
     {
       "cluster_count": 6,
-      "inertia": 628791.8307929819,
-      "silhouette_score": 0.09034485151289057
+      "inertia": 188550.1919493614,
+      "silhouette_score": 0.09123901372367042
     },
     {
       "cluster_count": 7,
-      "inertia": 610751.391718386,
-      "silhouette_score": 0.09063245874670374
+      "inertia": 182950.81296964432,
+      "silhouette_score": 0.09202686494194681
     },
     {
       "cluster_count": 8,
-      "inertia": 593446.3332858207,
-      "silhouette_score": 0.09098513592464544
+      "inertia": 177816.770903113,
+      "silhouette_score": 0.09184965131707341
     }
   ],
   "classification_metrics": {
-    "train_rows": 80000,
-    "test_rows": 20000,
-    "accuracy": 0.9996
+    "train_rows": 24000,
+    "test_rows": 6000,
+    "accuracy": 0.9993333333333333
   },
   "artifacts": {
     "raw_dataset": "D:\\code\\Machine Learning\\data\\raw\\financial_transactions.csv",
     "preprocessed_dataset": "D:\\code\\Machine Learning\\data\\processed\\transactions_preprocessed.csv",
     "training_with_target": "D:\\code\\Machine Learning\\data\\processed\\transactions_training_with_target.csv",
     "clustering_model": "D:\\code\\Machine Learning\\models\\model_clustering.joblib",
-    "decision_tree_model": "D:\\code\\Machine Learning\\models\\decision_tree_model.h5"
+    "decision_tree_model": "D:\\code\\Machine Learning\\models\\decision_tree_model.h5",
+    "submission_folder": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri"
   }
 }

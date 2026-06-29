@@ -1,3 +1,3 @@
 Target,transaction_count,avg_transaction_amount,avg_spending_deviation,avg_velocity_score,avg_geo_anomaly_score
-0,76561,142.05,-0.01,10.52,0.5
-1,23439,1069.22,-0.0,10.43,0.5
+0,7033,1058.16,0.0,10.48,0.5
+1,22967,141.97,0.0,10.49,0.5

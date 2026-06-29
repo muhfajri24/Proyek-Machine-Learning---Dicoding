@@ -1,15 +1,15 @@
 # Interpretasi Hasil Clustering
 
 ## Cluster 0
-- Jumlah transaksi: 76561
-- Rata-rata nominal transaksi: 142.05
-- Rata-rata spending deviation score: -0.01
-- Rata-rata velocity score: 10.52
+- Jumlah transaksi: 7033
+- Rata-rata nominal transaksi: 1058.16
+- Rata-rata spending deviation score: 0.0
+- Rata-rata velocity score: 10.48
 - Rata-rata geo anomaly score: 0.5
 
 ## Cluster 1
-- Jumlah transaksi: 23439
-- Rata-rata nominal transaksi: 1069.22
-- Rata-rata spending deviation score: -0.0
-- Rata-rata velocity score: 10.43
+- Jumlah transaksi: 22967
+- Rata-rata nominal transaksi: 141.97
+- Rata-rata spending deviation score: 0.0
+- Rata-rata velocity score: 10.49
 - Rata-rata geo anomaly score: 0.5

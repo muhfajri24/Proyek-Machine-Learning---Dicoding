@@ -27,12 +27,18 @@ DATA_PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 MODELS_DIR = PROJECT_ROOT / "models"
 REPORTS_DIR = PROJECT_ROOT / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
+SUBMISSION_DIR = PROJECT_ROOT / "BMLP_Muhammad-Fajri"
 
 RAW_DATASET_PATH = DATA_RAW_DIR / "financial_transactions.csv"
 PREPROCESSED_DATASET_PATH = DATA_PROCESSED_DIR / "transactions_preprocessed.csv"
 CLUSTERED_DATASET_PATH = DATA_PROCESSED_DIR / "transactions_training_with_target.csv"
 SUMMARY_PATH = REPORTS_DIR / "cluster_interpretation.md"
 PROJECT_SUMMARY_PATH = REPORTS_DIR / "project_summary.json"
+SUBMISSION_CLUSTER_NOTEBOOK = SUBMISSION_DIR / "[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb"
+SUBMISSION_CLASSIFICATION_NOTEBOOK = SUBMISSION_DIR / "[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb"
+SUBMISSION_CLUSTER_MODEL = SUBMISSION_DIR / "model_clustering.h5"
+SUBMISSION_CLASSIFICATION_MODEL = SUBMISSION_DIR / "decision_tree_model.h5"
+SUBMISSION_CLUSTER_DATA = SUBMISSION_DIR / "data_clustering.csv"
 
 KAGGLE_DATASET_SLUG = "aryan208/financial-transactions-dataset-for-fraud-detection"
 KAGGLE_FILENAME = "financial_fraud_detection_dataset.csv"
@@ -42,7 +48,7 @@ CLUSTER_RANGE = (2, 8)
 
 
 def ensure_directories() -> None:
-    for folder in [DATA_RAW_DIR, DATA_PROCESSED_DIR, MODELS_DIR, REPORTS_DIR, FIGURES_DIR]:
+    for folder in [DATA_RAW_DIR, DATA_PROCESSED_DIR, MODELS_DIR, REPORTS_DIR, FIGURES_DIR, SUBMISSION_DIR]:
         folder.mkdir(parents=True, exist_ok=True)
 
 
@@ -186,6 +192,7 @@ def build_clustering_model(scaled_df: pd.DataFrame, best_k: int) -> tuple[KMeans
     model = KMeans(n_clusters=best_k, random_state=RANDOM_STATE, n_init=20)
     labels = model.fit_predict(scaled_df)
     joblib.dump(model, MODELS_DIR / "model_clustering.joblib")
+    joblib.dump(model, SUBMISSION_CLUSTER_MODEL)
     return model, labels
 
 
@@ -196,6 +203,7 @@ def save_cluster_outputs(cleaned_df: pd.DataFrame, encoded_df: pd.DataFrame, lab
     labeled_training = encoded_df.copy()
     labeled_training["Target"] = labels
     labeled_training.to_csv(CLUSTERED_DATASET_PATH, index=False)
+    labeled_training.to_csv(SUBMISSION_CLUSTER_DATA, index=False)
 
     numeric_columns = labeled_raw.select_dtypes(include=[np.number]).columns.tolist()
     numeric_columns = [column for column in numeric_columns if column != "Target"]
@@ -247,6 +255,7 @@ def build_decision_tree(training_df: pd.DataFrame) -> dict[str, float | str]:
     accuracy = accuracy_score(y_test, predictions)
 
     joblib.dump(model, MODELS_DIR / "decision_tree_model.h5")
+    joblib.dump(model, SUBMISSION_CLASSIFICATION_MODEL)
     (REPORTS_DIR / "classification_report.txt").write_text(classification_report(y_test, predictions), encoding="utf-8")
 
     metrics = {
@@ -290,6 +299,7 @@ def save_project_summary(
             "training_with_target": str(CLUSTERED_DATASET_PATH),
             "clustering_model": str(MODELS_DIR / "model_clustering.joblib"),
             "decision_tree_model": str(MODELS_DIR / "decision_tree_model.h5"),
+            "submission_folder": str(SUBMISSION_DIR),
         },
     }
     PROJECT_SUMMARY_PATH.write_text(json.dumps(summary, indent=2), encoding="utf-8")
