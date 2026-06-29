@@ -7,37 +7,37 @@
   "cluster_metrics": [
     {
       "cluster_count": 2,
-      "inertia": 232815.47022775892,
+      "inertia": 232815.47022775887,
       "silhouette_score": 0.17334056206498274
     },
     {
       "cluster_count": 3,
-      "inertia": 214135.43586170586,
+      "inertia": 214135.4358617058,
       "silhouette_score": 0.11222098948597703
     },
     {
       "cluster_count": 4,
-      "inertia": 203251.04106638822,
+      "inertia": 203251.0410663883,
       "silhouette_score": 0.0979601752594917
     },
     {
       "cluster_count": 5,
-      "inertia": 194871.87584238098,
+      "inertia": 194871.875842381,
       "silhouette_score": 0.09606218683732598
     },
     {
       "cluster_count": 6,
-      "inertia": 188550.1919493614,
+      "inertia": 188550.19194936135,
       "silhouette_score": 0.09123901372367042
     },
     {
       "cluster_count": 7,
-      "inertia": 182950.81296964432,
+      "inertia": 182950.81296964447,
       "silhouette_score": 0.09202686494194681
     },
     {
       "cluster_count": 8,
-      "inertia": 177816.770903113,
+      "inertia": 177816.77090311304,
       "silhouette_score": 0.09184965131707341
     }
   ],
@@ -51,7 +51,15 @@
     "preprocessed_dataset": "D:\\code\\Machine Learning\\data\\processed\\transactions_preprocessed.csv",
     "training_with_target": "D:\\code\\Machine Learning\\data\\processed\\transactions_training_with_target.csv",
     "clustering_model": "D:\\code\\Machine Learning\\models\\model_clustering.joblib",
+    "clustering_model_h5": "D:\\code\\Machine Learning\\models\\model_clustering.h5",
     "decision_tree_model": "D:\\code\\Machine Learning\\models\\decision_tree_model.h5",
-    "submission_folder": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri"
+    "submission_folder": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri",
+    "submission_artifacts": {
+      "[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb",
+      "[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb",
+      "model_clustering.h5": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\model_clustering.h5",
+      "decision_tree_model.h5": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\decision_tree_model.h5",
+      "data_clustering.csv": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\data_clustering.csv"
+    }
   }
 }

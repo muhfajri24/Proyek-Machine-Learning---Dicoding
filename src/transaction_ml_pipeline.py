@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from io import StringIO
 from pathlib import Path
+import shutil
 
 import joblib
 import kagglehub
@@ -28,17 +29,27 @@ MODELS_DIR = PROJECT_ROOT / "models"
 REPORTS_DIR = PROJECT_ROOT / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
 SUBMISSION_DIR = PROJECT_ROOT / "BMLP_Muhammad-Fajri"
+NOTEBOOKS_DIR = PROJECT_ROOT / "notebooks"
 
 RAW_DATASET_PATH = DATA_RAW_DIR / "financial_transactions.csv"
 PREPROCESSED_DATASET_PATH = DATA_PROCESSED_DIR / "transactions_preprocessed.csv"
 CLUSTERED_DATASET_PATH = DATA_PROCESSED_DIR / "transactions_training_with_target.csv"
 SUMMARY_PATH = REPORTS_DIR / "cluster_interpretation.md"
 PROJECT_SUMMARY_PATH = REPORTS_DIR / "project_summary.json"
+SOURCE_CLUSTER_NOTEBOOK = NOTEBOOKS_DIR / "clustering_submission.ipynb"
+SOURCE_CLASSIFICATION_NOTEBOOK = NOTEBOOKS_DIR / "classification_submission.ipynb"
 SUBMISSION_CLUSTER_NOTEBOOK = SUBMISSION_DIR / "[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb"
 SUBMISSION_CLASSIFICATION_NOTEBOOK = SUBMISSION_DIR / "[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb"
 SUBMISSION_CLUSTER_MODEL = SUBMISSION_DIR / "model_clustering.h5"
 SUBMISSION_CLASSIFICATION_MODEL = SUBMISSION_DIR / "decision_tree_model.h5"
 SUBMISSION_CLUSTER_DATA = SUBMISSION_DIR / "data_clustering.csv"
+REQUIRED_SUBMISSION_ARTIFACTS = {
+    "[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb",
+    "[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb",
+    "model_clustering.h5",
+    "decision_tree_model.h5",
+    "data_clustering.csv",
+}
 
 KAGGLE_DATASET_SLUG = "aryan208/financial-transactions-dataset-for-fraud-detection"
 KAGGLE_FILENAME = "financial_fraud_detection_dataset.csv"
@@ -52,7 +63,21 @@ def ensure_directories() -> None:
         folder.mkdir(parents=True, exist_ok=True)
 
 
+def clean_submission_directory() -> None:
+    SUBMISSION_DIR.mkdir(parents=True, exist_ok=True)
+    for path in SUBMISSION_DIR.iterdir():
+        if path.name in REQUIRED_SUBMISSION_ARTIFACTS:
+            continue
+        if path.is_dir():
+            shutil.rmtree(path)
+        else:
+            path.unlink()
+
+
 def locate_kaggle_dataset() -> Path:
+    if RAW_DATASET_PATH.exists():
+        return RAW_DATASET_PATH
+
     explicit_path = Path.home() / ".cache" / "kagglehub" / "datasets" / "aryan208" / "financial-transactions-dataset-for-fraud-detection" / "versions" / "1" / KAGGLE_FILENAME
     if explicit_path.exists():
         return explicit_path
@@ -192,6 +217,7 @@ def build_clustering_model(scaled_df: pd.DataFrame, best_k: int) -> tuple[KMeans
     model = KMeans(n_clusters=best_k, random_state=RANDOM_STATE, n_init=20)
     labels = model.fit_predict(scaled_df)
     joblib.dump(model, MODELS_DIR / "model_clustering.joblib")
+    joblib.dump(model, MODELS_DIR / "model_clustering.h5")
     joblib.dump(model, SUBMISSION_CLUSTER_MODEL)
     return model, labels
 
@@ -278,12 +304,43 @@ def plot_cluster_distribution(training_df: pd.DataFrame) -> None:
     plt.close()
 
 
+def assemble_submission_artifacts() -> dict[str, str]:
+    notebook_sources = {
+        SOURCE_CLUSTER_NOTEBOOK: SUBMISSION_CLUSTER_NOTEBOOK,
+        SOURCE_CLASSIFICATION_NOTEBOOK: SUBMISSION_CLASSIFICATION_NOTEBOOK,
+    }
+    copied_files: dict[str, str] = {}
+
+    for source_path, destination_path in notebook_sources.items():
+        if not source_path.exists():
+            raise FileNotFoundError(f"Notebook submission tidak ditemukan: {source_path}")
+        shutil.copy2(source_path, destination_path)
+        copied_files[destination_path.name] = str(destination_path)
+
+    required_artifacts = [
+        SUBMISSION_CLUSTER_NOTEBOOK,
+        SUBMISSION_CLASSIFICATION_NOTEBOOK,
+        SUBMISSION_CLUSTER_MODEL,
+        SUBMISSION_CLASSIFICATION_MODEL,
+        SUBMISSION_CLUSTER_DATA,
+    ]
+    missing_artifacts = [str(path) for path in required_artifacts if not path.exists()]
+    if missing_artifacts:
+        raise FileNotFoundError(f"Artefak submission belum lengkap: {missing_artifacts}")
+
+    copied_files["model_clustering.h5"] = str(SUBMISSION_CLUSTER_MODEL)
+    copied_files["decision_tree_model.h5"] = str(SUBMISSION_CLASSIFICATION_MODEL)
+    copied_files["data_clustering.csv"] = str(SUBMISSION_CLUSTER_DATA)
+    return copied_files
+
+
 def save_project_summary(
     raw_df: pd.DataFrame,
     cleaned_df: pd.DataFrame,
     best_k: int,
     metrics_df: pd.DataFrame,
     classification_metrics: dict[str, float | str],
+    submission_artifacts: dict[str, str],
 ) -> None:
     summary = {
         "dataset_source": KAGGLE_DATASET_SLUG,
@@ -298,8 +355,10 @@ def save_project_summary(
             "preprocessed_dataset": str(PREPROCESSED_DATASET_PATH),
             "training_with_target": str(CLUSTERED_DATASET_PATH),
             "clustering_model": str(MODELS_DIR / "model_clustering.joblib"),
+            "clustering_model_h5": str(MODELS_DIR / "model_clustering.h5"),
             "decision_tree_model": str(MODELS_DIR / "decision_tree_model.h5"),
             "submission_folder": str(SUBMISSION_DIR),
+            "submission_artifacts": submission_artifacts,
         },
     }
     PROJECT_SUMMARY_PATH.write_text(json.dumps(summary, indent=2), encoding="utf-8")
@@ -307,6 +366,7 @@ def save_project_summary(
 
 def run_pipeline() -> dict[str, object]:
     ensure_directories()
+    clean_submission_directory()
     stage_kaggle_dataset()
     raw_df = load_dataset()
     cleaned_df, encoded_df, _, _, _ = preprocess_dataset(raw_df)
@@ -315,7 +375,8 @@ def run_pipeline() -> dict[str, object]:
     training_df = save_cluster_outputs(cleaned_df, encoded_df, labels)
     classification_metrics = build_decision_tree(training_df)
     plot_cluster_distribution(training_df)
-    save_project_summary(raw_df, cleaned_df, best_k, metrics_df, classification_metrics)
+    submission_artifacts = assemble_submission_artifacts()
+    save_project_summary(raw_df, cleaned_df, best_k, metrics_df, classification_metrics, submission_artifacts)
 
     print("Pipeline submission machine learning selesai dijalankan.")
     print(f"Sumber dataset: {KAGGLE_DATASET_SLUG}")
