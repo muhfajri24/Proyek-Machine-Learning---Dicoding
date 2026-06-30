@@ -32,7 +32,7 @@
     },
     {
       "cluster_count": 7,
-      "inertia": 182950.81296964447,
+      "inertia": 182950.81296964444,
       "silhouette_score": 0.09202686494194681
     },
     {
@@ -55,8 +55,8 @@
     "decision_tree_model": "D:\\code\\Machine Learning\\models\\decision_tree_model.h5",
     "submission_folder": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri",
     "submission_artifacts": {
-      "[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb",
-      "[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb",
+      "[Clustering]_Submission_Akhir_BMLP_Your_Name.ipynb": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\[Clustering]_Submission_Akhir_BMLP_Your_Name.ipynb",
+      "[Klasifikasi]_Submission_Akhir_BMLP_Your_Name.ipynb": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\[Klasifikasi]_Submission_Akhir_BMLP_Your_Name.ipynb",
       "model_clustering.h5": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\model_clustering.h5",
       "decision_tree_model.h5": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\decision_tree_model.h5",
       "data_clustering.csv": "D:\\code\\Machine Learning\\BMLP_Muhammad-Fajri\\data_clustering.csv"

@@ -38,14 +38,14 @@ SUMMARY_PATH = REPORTS_DIR / "cluster_interpretation.md"
 PROJECT_SUMMARY_PATH = REPORTS_DIR / "project_summary.json"
 SOURCE_CLUSTER_NOTEBOOK = NOTEBOOKS_DIR / "clustering_submission.ipynb"
 SOURCE_CLASSIFICATION_NOTEBOOK = NOTEBOOKS_DIR / "classification_submission.ipynb"
-SUBMISSION_CLUSTER_NOTEBOOK = SUBMISSION_DIR / "[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb"
-SUBMISSION_CLASSIFICATION_NOTEBOOK = SUBMISSION_DIR / "[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb"
+SUBMISSION_CLUSTER_NOTEBOOK = SUBMISSION_DIR / "[Clustering]_Submission_Akhir_BMLP_Your_Name.ipynb"
+SUBMISSION_CLASSIFICATION_NOTEBOOK = SUBMISSION_DIR / "[Klasifikasi]_Submission_Akhir_BMLP_Your_Name.ipynb"
 SUBMISSION_CLUSTER_MODEL = SUBMISSION_DIR / "model_clustering.h5"
 SUBMISSION_CLASSIFICATION_MODEL = SUBMISSION_DIR / "decision_tree_model.h5"
 SUBMISSION_CLUSTER_DATA = SUBMISSION_DIR / "data_clustering.csv"
 REQUIRED_SUBMISSION_ARTIFACTS = {
-    "[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb",
-    "[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb",
+    "[Clustering]_Submission_Akhir_BMLP_Your_Name.ipynb",
+    "[Klasifikasi]_Submission_Akhir_BMLP_Your_Name.ipynb",
     "model_clustering.h5",
     "decision_tree_model.h5",
     "data_clustering.csv",

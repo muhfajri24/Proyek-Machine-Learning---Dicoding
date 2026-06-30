@@ -43,14 +43,19 @@ Project ini dibuat untuk memenuhi submission machine learning dengan alur lengka
 
 Folder yang perlu di-upload ke reviewer adalah `BMLP_Muhammad-Fajri`, bukan seluruh folder `Machine Learning`.
 Folder submission ini sengaja dibersihkan otomatis oleh pipeline agar hanya menyisakan file yang diminta reviewer.
+Nama notebook sekarang sudah memakai nama final yang siap dikirim ulang.
 
 ```text
 BMLP_Muhammad-Fajri/
 |-- [Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb
 |-- [Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb
 |-- model_clustering.h5
+|-- PCA_model_clustering.h5
 |-- decision_tree_model.h5
-`-- data_clustering.csv
+|-- explore_random_forest_classification.h5
+|-- tuning_classification.h5
+|-- data_clustering.csv
+`-- data_clustering_inverse.csv
 ```
 
 ## Checklist File Reviewer
@@ -65,7 +70,8 @@ BMLP_Muhammad-Fajri/
 
 - `run_pipeline.py` untuk menjalankan pipeline end-to-end
 - `src/transaction_ml_pipeline.py` untuk logika utama project
-- `notebooks/submission_walkthrough.ipynb` untuk notebook submission
+- `BMLP_Muhammad-Fajri/[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb` untuk notebook clustering final
+- `BMLP_Muhammad-Fajri/[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb` untuk notebook klasifikasi final
 - `data/processed/transactions_training_with_target.csv` untuk data hasil preprocessing + target cluster
 - `reports/cluster_profile_summary.csv` untuk ringkasan karakteristik cluster
 - `BMLP_Muhammad-Fajri/` untuk folder submission final yang siap dikirim ulang
@@ -92,8 +98,13 @@ python -m unittest discover -s tests
   - `BMLP_Muhammad-Fajri/[Clustering]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb`
   - `BMLP_Muhammad-Fajri/[Klasifikasi]_Submission_Akhir_BMLP_Muhammad_Fajri.ipynb`
   - `BMLP_Muhammad-Fajri/model_clustering.h5`
+  - `BMLP_Muhammad-Fajri/PCA_model_clustering.h5`
   - `BMLP_Muhammad-Fajri/decision_tree_model.h5`
+  - `BMLP_Muhammad-Fajri/explore_random_forest_classification.h5`
+  - `BMLP_Muhammad-Fajri/tuning_classification.h5`
   - `BMLP_Muhammad-Fajri/data_clustering.csv`
+  - `BMLP_Muhammad-Fajri/data_clustering_inverse.csv`
+  - `BMLP_Muhammad-Fajri.zip`
 
 ## Sumber Dataset
 
@@ -106,3 +117,4 @@ python -m unittest discover -s tests
 - Kolom dataset di-rename ke format yang lebih dekat dengan checklist submission, misalnya `transaction_id` menjadi `TransactionID` dan `timestamp` menjadi `TransactionDate`.
 - Kolom `FraudType` dan `TimeSinceLastTransaction` dihapus sebelum `dropna()` karena missing value-nya sangat besar dan akan membuat terlalu banyak data hilang bila dipertahankan apa adanya.
 - Pipeline sekarang juga otomatis menyalin notebook submission dan memvalidasi artefak wajib di folder `BMLP_Muhammad-Fajri`.
+- Notebook template Dicoding di folder `BMLP_Muhammad-Fajri` juga sudah disesuaikan agar lolos eksekusi lokal, termasuk workaround kompatibilitas `Yellowbrick`.
